@@ -9,7 +9,7 @@ import (
 	"io"
 	"github.com/go-redis/redis"
 	"gopkg.in/mgo.v2/bson"
-	"strings"
+//	"strings"
 	"time"
 )
 
@@ -114,7 +114,6 @@ func delhandler(w http.ResponseWriter, r *http.Request) {
 	case "POST":
 		//format problem
 		dcd := json.NewDecoder(r.Body)
-		var ret strings.Builder
 		var t Keys
 		err := dcd.Decode(&t)
 		if (err != io.EOF && err != nil) {
@@ -123,6 +122,8 @@ func delhandler(w http.ResponseWriter, r *http.Request) {
 		client := redis_conn()
 		defer client.Close()
 
+		var data map[string][]string
+		data = make(map[string][]string)
 		for i := 0; i < len(t.Key); i++ {
 			// remove from mgo
 			err = session.DB("main").C("kv").Remove(bson.M{"k":t.Key[i]})
@@ -138,15 +139,13 @@ func delhandler(w http.ResponseWriter, r *http.Request) {
 			if (err != nil) {
 				panic(err)
 			}
-			ret.WriteString("{\"Key\":\"")
-			ret.WriteString(t.Key[i])
-			ret.WriteString("\"}")
+			data["Key"] = append(data["Key"], t.Key[i])
 		}
-		if (ret.Len() > 0) {
-			sendresp(w, 1, ret.String())
-		} else {
-			sendresp(w, -1, "Not found any in db.")
+		newdata, err := json.Marshal(data)
+		if (err != nil) {
+			panic(err)
 		}
+		sendresp(w, 1, string(newdata))
 
 	default:
 		sendresp(w, -1, "only POST supported.")
@@ -159,14 +158,13 @@ func modhandler(w http.ResponseWriter, r *http.Request) {
 
 	switch(r.Method) {
 	case "POST":
-		var ret strings.Builder
 		var t Keyvalue
-		var count int
-		count = 0
 		dcd := json.NewDecoder(r.Body)
 		client := redis_conn()
 		defer client.Close()
 
+		var data map[string]interface{}
+		data = make(map[string]interface{})
 		for {
 			err := dcd.Decode(&t)
 			if (err == io.EOF) {
@@ -181,23 +179,18 @@ func modhandler(w http.ResponseWriter, r *http.Request) {
 				//sendresp(w, -1, "Cannot mod value, because does not exist.")
 				//return
 			}
-			count++
 			err = client.Del(t.Key).Err()
 			if (err != nil) {
 				// redis timeout, ignore case
 				//panic(err)
 			}
-			ret.WriteString("{\"Key\":\"")
-			ret.WriteString(t.Key)
-			ret.WriteString("\",\"Val\":\"")
-			ret.WriteString(t.Val)
-			ret.WriteString("\"}")
+			data[t.Key] = t.Val
 		}
-		if (count > 0) {
-			sendresp(w, 1, ret.String())
-		} else {
-			sendresp(w, -1, "Not found any in db.")
+		ret, err := json.Marshal(data)
+		if (err != nil) {
+			panic(err)
 		}
+		sendresp(w, 1, string(ret))
 
 	default:
 		sendresp(w, -1, "only POST supported.")
@@ -208,7 +201,6 @@ func quehandler(w http.ResponseWriter, r *http.Request) {
 	switch (r.Method) {
 	case "POST":
 		var t Keys
-		var ret strings.Builder
 		dcd := json.NewDecoder(r.Body)
 		err := dcd.Decode(&t)
 		if (err != nil) {
@@ -250,11 +242,15 @@ func quehandler(w http.ResponseWriter, r *http.Request) {
 		if (err != nil) {
 			panic(err)
 		}
-		ret.WriteString(string(newdata))
-		sendresp(w, 1, ret.String())
+		sendresp(w, 1, string(newdata))
+
 	default:
 		sendresp(w, -1, "only POST supported.")
 	}
+}
+
+func roothandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Hello world!")
 }
 
 func main() {
@@ -266,5 +262,6 @@ func main() {
 	mux.HandleFunc("/del", delhandler)
 	// consider partial case
 	mux.HandleFunc("/query", quehandler)
+	mux.HandleFunc("/", roothandler)
 	log.Fatal(http.ListenAndServe(":8080", mux))
 }
