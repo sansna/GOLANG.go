@@ -7,11 +7,14 @@ func main() {
 	type Base struct {
 		baseint int
 	}
+	// annonymous member of struct Base, its members are automatically
+	// added to struct Elt.
 	type Elt struct {
 		*Base
 		id, phone int
 		name string
 	}
+	// example of init annonymous member during allocation
 	a := Elt{
 		Base: &Base{
 			baseint: 10,
