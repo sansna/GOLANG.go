@@ -16,4 +16,5 @@ func main() {
 	str := fmt.Sprintf("%025d%s", nanotime, "helloworld")
 	fmt.Sscanf(str, "%025d%s", &i, &d)
 	fmt.Println(i, d)
+	fmt.Printf("%04d%02d%02d",time.Now().Year(),int(time.Now().Month()),time.Now().Day())
 }
