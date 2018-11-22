@@ -17,4 +17,11 @@ func main() {
 	fmt.Sscanf(str, "%025d%s", &i, &d)
 	fmt.Println(i, d)
 	fmt.Printf("%04d%02d%02d",time.Now().Year(),int(time.Now().Month()),time.Now().Day())
+
+	t := time.Tick(time.Second*2)
+	now := time.Now()
+	// timeticks
+	for i:= range t {
+		fmt.Printf("time moves %v\n", i.Second() - now.Second())
+	}
 }
