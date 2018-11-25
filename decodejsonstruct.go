@@ -4,6 +4,7 @@ import "encoding/json"
 import "fmt"
 type ActionRedisMQUpdate struct {
 	Pid int64 `json:"pid"`
+	Tid int64 `json:"tid,omitempty"`
 	Age int64 //`json:"age"`
 	Gender int64 //`json:"gender"`
 	Citycode string `json:"cc"`
@@ -15,7 +16,7 @@ type ActionRedisMQUpdate struct {
 func main() {
 	//a := &decoder.ActionRedisMQUpdate{
 	a := &ActionRedisMQUpdate{
-		Pid: 1,
+		Pid: 0,
 		Age: 2,
 		Gender: 1,
 		Citycode: "Asdfas",
