@@ -1,6 +1,7 @@
 package main
 
 import "fmt"
+
 //import "reflect"
 
 type Elem struct {
@@ -9,7 +10,8 @@ type Elem struct {
 }
 
 func main() {
-	// a is a thing that stands for slice of ptrs
+	// a is a thing that stands for slice of ptrs.
+	//+so if needs to modify a in a function, pass like func(&a)
 	a := []*Elem{}
 	// b is slice of ptrs that is allocated with space, but each ptr is nil
 	b := make([]*Elem, 100)
