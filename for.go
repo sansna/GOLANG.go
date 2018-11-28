@@ -6,7 +6,7 @@ func main() {
 	a[0] = 3
 	a[1] = 9
 	a[2] = 1
-	for i,v := range a {
+	for index,value := range a {
 		fmt.Println("a%d: %d", i, v)
 	}
 }
