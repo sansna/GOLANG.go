@@ -35,4 +35,7 @@ func main() {
 	}
 	fmt.Println("mmm", mmm)
 	fmt.Println(len(mmm))
+	delete(mmm, "Lif")
+	fmt.Println("mmm", mmm)
+	fmt.Println(len(mmm))
 }

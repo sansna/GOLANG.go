@@ -1,5 +1,8 @@
 package main
 import "fmt"
+func test() bool {
+	return false
+}
 func main() {
 	var a []int
 	a = make([]int,3)
@@ -7,7 +10,7 @@ func main() {
 	a[1] = 9
 	a[2] = 1
 	for index,value := range a {
-		fmt.Println("a%d: %d", index, value)
+		fmt.Printf("a%d: %d", index, value)
 	}
 	b:=make(map[int64]int64)
 	b[1]=1
@@ -16,5 +19,8 @@ func main() {
 	b[4]=5
 	for _, v := range b {
 		fmt.Println(v)
+	}
+	for ok := test(); ok {
+		fmt.Println("ok")
 	}
 }

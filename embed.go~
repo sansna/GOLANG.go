@@ -1,0 +1,20 @@
+package main
+import "fmt"
+type bbb struct {
+	a int
+	b int
+}
+type aaa struct {
+	li bbb
+	c int
+}
+func main() {
+	d := aaa{
+		li: bbb{
+			a:1,
+			b:2,
+		},
+		c:3,
+	}
+	fmt.Println(d)
+}
