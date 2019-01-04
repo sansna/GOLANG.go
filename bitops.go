@@ -36,4 +36,7 @@ func main() {
 		}
 	}
 	fmt.Println(i)
+	g := 10
+	g |= 1
+	fmt.Println("g", g)
 }
