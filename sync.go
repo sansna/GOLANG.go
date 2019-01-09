@@ -20,9 +20,7 @@ type SyncDatas struct {
 
 func (a *SyncDatas) thread(n int64, wg *sync.WaitGroup) {
 	a.Lock()
-	if _, ok := a.sd[1]; !ok {
-		fmt.Println("ok", a.sd[1].RWMutex)
-		c := a.sd[1]
+	if c, ok := a.sd[1]; !ok {
 		c.RWMutex = &sync.RWMutex{}
 		c.a = new(int64)
 		a.sd[1] = c
