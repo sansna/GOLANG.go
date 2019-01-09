@@ -1,12 +1,14 @@
 package main
+
 import "fmt"
 import "math"
+
 func main() {
-	fmt.Printf("%064b\n", uint(math.Pow(2,40)-1))
-	fmt.Printf("%b\n", ^uint(math.Pow(2,40)-1))
+	fmt.Printf("%064b\n", uint(math.Pow(2, 40)-1))
+	fmt.Printf("%b\n", ^uint(math.Pow(2, 40)-1))
 	var a int64
 	a = 10
-	if (a << 40 >> 40 != a) {
+	if a<<40>>40 != a {
 		fmt.Printf("%d\n", a)
 	} else {
 
@@ -29,9 +31,9 @@ func main() {
 	// you cannot >>/<< of type float64
 	var c float64
 	var i int
-	for i=0; i < 66; i++ {
-		c = math.Pow(2,float64(i))
-		if (c != float64(int64(c))) {
+	for i = 0; i < 66; i++ {
+		c = math.Pow(2, float64(i))
+		if c != float64(int64(c)) {
 			break
 		}
 	}
@@ -41,4 +43,8 @@ func main() {
 	fmt.Println("g", g)
 	g ^= 1
 	fmt.Println("g", g)
+	g = 3
+	if 1 & g == 1 {
+		fmt.Println("ok")
+	}
 }

@@ -38,4 +38,8 @@ func main() {
 	delete(mmm, "Lif")
 	fmt.Println("mmm", mmm)
 	fmt.Println(len(mmm))
+
+	for n, v := range mmm {
+		fmt.Println("n:", n, "v:", v)
+	}
 }

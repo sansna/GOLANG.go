@@ -10,7 +10,7 @@ func main() {
 	a[1] = 9
 	a[2] = 1
 	for index,value := range a {
-		fmt.Printf("a%d: %d", index, value)
+		fmt.Printf("a%d: %d\n", index, value)
 	}
 	b:=make(map[int64]int64)
 	b[1]=1
@@ -20,7 +20,15 @@ func main() {
 	for _, v := range b {
 		fmt.Println(v)
 	}
-	for ok := test(); ok {
+	if ok := test(); ok {
 		fmt.Println("ok")
+	}
+	// i is index
+	for i := range a {
+		fmt.Println(i)
+	}
+	// v is value
+	for _, v := range a {
+		fmt.Println(v)
 	}
 }
