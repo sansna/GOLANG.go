@@ -17,4 +17,12 @@ func main() {
 	fmt.Println(p.a)
 	fmt.Println(reflect.TypeOf(p))
 	fmt.Println(reflect.TypeOf(q))
+
+	ptrs := make([]*int, 10)
+	for i:=0; i< 10; i++ {
+		status := 2+i
+		ptr := &status
+		ptrs[i] = ptr
+	}
+	fmt.Println(*ptrs[1])
 }
