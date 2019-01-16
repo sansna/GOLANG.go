@@ -5,7 +5,7 @@ package main
 import (
 	"fmt"
 	"sync"
-	"time"
+	//"time"
 )
 
 type SyncData struct {
@@ -26,9 +26,11 @@ func (a *SyncDatas) thread(n int64, wg *sync.WaitGroup) {
 		a.sd[1] = c
 	}
 	sd := a.sd
+
+	// lock child before unlock parent
 	sd[1].Lock()
 	a.Unlock()
-	time.Sleep(time.Nanosecond * 10)
+
 	*sd[1].a = *sd[1].a + n
 	sd[1].Unlock()
 	wg.Done()
@@ -50,11 +52,15 @@ func main() {
 	a.sd = make(map[int64]SyncData, 1)
 	a.Unlock()
 
-	//time.Sleep(time.Second * 1)
-	data[1].Lock()
-	fmt.Println(*data[1].a)
-	data[1].Unlock()
+	data[1].RLock()
+	read := *data[1].a
+	data[1].RUnlock()
 
 	wg.Wait()
-	fmt.Println(*a.sd[1].a + *data[1].a)
+	// a.sd is possible not initialized in thread
+	if len(a.sd) == 0 {
+		fmt.Println(0, read)
+	} else {
+		fmt.Println(1, *a.sd[1].a+read)
+	}
 }
