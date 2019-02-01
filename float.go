@@ -11,4 +11,5 @@ func main() {
 	} else {
 		fmt.Println("not")
 	}
+	fmt.Println(86301/300*300)
 }

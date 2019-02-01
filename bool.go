@@ -9,4 +9,9 @@ func main() {
 	if a {
 		fmt.Println("ok")
 	}
+	var a int
+	a = 1
+	if a {
+		fmt.Println("ok")
+	}
 }
