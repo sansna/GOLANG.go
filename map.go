@@ -3,6 +3,8 @@ package main
 import "fmt"
 
 func main() {
+	long := make(map[string]interface{}, 100)
+	fmt.Println("length of long is", len(long))
 	m := make(map[string]interface{})
 	m["life"] = 1
 	m["is"] = 2

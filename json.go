@@ -41,4 +41,13 @@ func main() {
 		fmt.Println(err)
 	}
 	fmt.Println(bb.A)
+
+	asdf := make(map[int64]*b, 10)
+	// need alloc
+	asdf[1] = &b{}
+	err = json.Unmarshal(buf, asdf[1])
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(asdf[1].A)
 }
