@@ -44,4 +44,25 @@ func main() {
 	for n, v := range mmm {
 		fmt.Println("n:", n, "v:", v)
 	}
+
+	// zero v will also be iterated.
+	nn := map[int64]int64{
+		1: 0,
+	}
+	nn[123] = 0
+	for n, v := range nn {
+		fmt.Println(n, v)
+	}
+
+	// map of array
+	array := []int64{3, 5, 7}
+	moa := map[int64]*[]int64{
+		1: &[]int64{1, 2, 3, 5},
+		3: &[]int64{2, 3, 5},
+		5: &array,
+	}
+	array = append(array, 1100)
+	*moa[1] = append(*moa[1], 102)
+	(*moa[3])[1] = 0
+	fmt.Println("moa:", *moa[1], *moa[3], *moa[5])
 }

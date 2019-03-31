@@ -2,9 +2,13 @@ package main
 
 import (
 	"bufio"
+	"context"
 	"encoding/json"
 	"fmt"
 	"git.ixiaochuan.cn/service/post/calculator/models/structs"
+	"git.ixiaochuan.cn/xclib/adapter/api/accountapi"
+	"git.ixiaochuan.cn/xclib/adapter/api/cfgstruct"
+	"git.ixiaochuan.cn/xclib/adapter/proto/account/proto"
 	"os"
 	//"strings"
 )
@@ -73,9 +77,25 @@ type Midfeat struct {
 	recd              int64
 	editrecd          int64
 	adolrecd          int64
+	// acnt
+	age      int64
+	gender   int64
+	register int64
+	vip      int64
+	official int64
 }
 
 func main() {
+	cfg := cfgstruct.AccountApiCfgSt{
+		ApiCfgSingleSt: cfgstruct.ApiCfgSingleSt{
+			AppHost: "http://acnt.srv.in.ixiaochuan.cn",
+		},
+	}
+	err := accountapi.Init(cfg)
+	if err != 0 {
+		fmt.Println("err hasei. %v", err)
+		return
+	}
 	buf := make(map[int64]structs.AdmRecSquare, 10000000)
 	//if len(os.Args) == 2 {
 	//	file, _ := os.Open(os.Args[1])
@@ -87,7 +107,11 @@ func main() {
 	for scanner.Scan() {
 		s := scanner.Text()
 		v := structs.AdmRecSquare{}
-		json.Unmarshal([]byte(s), &v)
+		err := json.Unmarshal([]byte(s), &v)
+		if err != nil {
+			fmt.Println("err hasei. %v", err)
+			continue
+		}
 		if _, ok := buf[v.Pid]; !ok {
 			buf[v.Pid] = structs.AdmRecSquare{
 				Mid:          v.Mid,
@@ -195,6 +219,12 @@ func main() {
 
 	for _, v := range buf {
 		if _, ok := users[v.Mid]; !ok {
+			resp, err := accountapi.New(context.Background()).GetMemberInfo(proto.GetMemberInfoParam{
+				Mid: v.Mid,
+			})
+			memst := resp.Data.Info
+			//TODO: put in all info
+
 			private = 0
 			mct = 0
 			zonevisible = 0
