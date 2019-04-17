@@ -65,4 +65,15 @@ func main() {
 	*moa[1] = append(*moa[1], 102)
 	(*moa[3])[1] = 0
 	fmt.Println("moa:", *moa[1], *moa[3], *moa[5])
+
+
+	var newmap map[string]string
+	newmap = nil
+	for k, v := range newmap {
+		fmt.Println("info:",k,v)
+	}
+
+	if _, ok:=newmap["asdf"];!ok {
+		fmt.Println("asdf not found")
+	}
 }

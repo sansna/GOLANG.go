@@ -6,8 +6,11 @@ import (
 	"git.ixiaochuan.cn/xclib/common/xcproto"
 	goproto "github.com/gogo/protobuf/proto"
 
+	"gopkg.in/mgo.v2/bson"
+
 	"git.ixiaochuan.cn/xclib/common/mongodb"
 	"git.ixiaochuan.cn/xclib/common/mongodb/cfgstruct"
+	//"git.ixiaochuan.cn/gateway/service/post/record/server/logic"
 )
 
 func main() {
@@ -32,10 +35,21 @@ func main() {
 	}
 
 	conn := testmongo.GetConn()
-	err = conn.DB("testv2").C("test").Insert(rt)
+	//for i := 0; i < 100; i++ {
+	//	err = conn.DB("testv2").C("test").Insert(rt)
+	//	if err != nil {
+	//		fmt.Println("%v", err)
+	//	}
+	//}
+
+	query := bson.M{}
+	result := []*xcproto.RecordTags{}
+	// mgo.v2's find returns all elem.
+	err = conn.DB("testv2").C("test").Find(query).All(&result)
 	if err != nil {
 		fmt.Println("%v", err)
 	}
+	fmt.Println(len(result), "elem in testv2")
 
 	// although seems ptr, it can be corretly encoded from/decoded to value
 	buf, _ := json.Marshal(rt)

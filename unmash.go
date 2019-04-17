@@ -2,13 +2,14 @@ package main
 
 import (
 	"bufio"
-	"context"
+	//"context"
 	"encoding/json"
 	"fmt"
 	"git.ixiaochuan.cn/service/post/calculator/models/structs"
 	"git.ixiaochuan.cn/xclib/adapter/api/accountapi"
 	"git.ixiaochuan.cn/xclib/adapter/api/cfgstruct"
-	"git.ixiaochuan.cn/xclib/adapter/proto/account/proto"
+	//"git.ixiaochuan.cn/xclib/adapter/proto/account/proto"
+	//goproto "github.com/gogo/protobuf/proto"
 	"os"
 	//"strings"
 )
@@ -44,6 +45,10 @@ var (
 	recd              int64
 	editrecd          int64
 	adolrecd          int64
+	totaldisp         int64
+	//acnt
+	age    int64
+	gender int64
 )
 
 type Midfeat struct {
@@ -77,6 +82,7 @@ type Midfeat struct {
 	recd              int64
 	editrecd          int64
 	adolrecd          int64
+	totaldisp         int64
 	// acnt
 	age      int64
 	gender   int64
@@ -92,7 +98,7 @@ func main() {
 		},
 	}
 	err := accountapi.Init(cfg)
-	if err != 0 {
+	if err != nil {
 		fmt.Println("err hasei. %v", err)
 		return
 	}
@@ -219,10 +225,13 @@ func main() {
 
 	for _, v := range buf {
 		if _, ok := users[v.Mid]; !ok {
-			resp, err := accountapi.New(context.Background()).GetMemberInfo(proto.GetMemberInfoParam{
-				Mid: v.Mid,
-			})
-			memst := resp.Data.Info
+			//resp, err := accountapi.New(context.Background()).GetMemberInfo(&proto.GetMemberInfoParam{
+			//	Mid: goproto.Int64(v.Mid),
+			//})
+			//if err != nil {
+			//	fmt.Println("account api GetMemberInfoParam fail. mid: %v, err: %v", v.Mid, err)
+			//}
+			//memst := resp.Data.Info
 			//TODO: put in all info
 
 			private = 0
@@ -255,6 +264,9 @@ func main() {
 			recd = 0
 			editrecd = 0
 			adolrecd = 0
+			totaldisp = v.Disp
+			age = v.Age
+			gender = v.Gender
 			if v.Private == 1 {
 				private = 1
 			}
@@ -354,6 +366,9 @@ func main() {
 				recd:              recd,
 				editrecd:          editrecd,
 				adolrecd:          adolrecd,
+				totaldisp:         totaldisp,
+				age:               age,
+				gender:            gender,
 			}
 		} else {
 			private = users[v.Mid].private
@@ -386,6 +401,10 @@ func main() {
 			recd = users[v.Mid].recd
 			editrecd = users[v.Mid].editrecd
 			adolrecd = users[v.Mid].adolrecd
+			totaldisp = users[v.Mid].totaldisp
+			totaldisp += v.Disp
+			age = v.Age
+			gender = v.Gender
 			if v.Private == 1 {
 				private += 1
 			}
@@ -485,11 +504,15 @@ func main() {
 				recd:              recd,
 				editrecd:          editrecd,
 				adolrecd:          adolrecd,
+				totaldisp:         totaldisp,
+				age:               age,
+				gender:            gender,
 			}
 		}
 	}
 
 	for k, v := range users {
-		fmt.Println(k, v.adolrec, v.contentpic, v.contentvideo, v.editrec, v.invisible, v.location, v.private, v.mct, v.purecontent, v.purepic, v.purevideo, v.rec, v.selfdelete, v.selfv, v.square, v.totaldetailsquare, v.totalimg, v.totalcontent, v.totallike, v.totalreport, v.totalreview, v.totalreview2, v.totalreviews, v.totalvideo, v.visible, v.zonevisible, v.recd, v.editrecd, v.adolrecd)
+		//fmt.Println(k, v.adolrec, v.contentpic, v.contentvideo, v.editrec, v.invisible, v.location, v.private, v.mct, v.purecontent, v.purepic, v.purevideo, v.rec, v.selfdelete, v.selfv, v.square, v.totaldetailsquare, v.totalimg, v.totalcontent, v.totallike, v.totalreport, v.totalreview, v.totalreview2, v.totalreviews, v.totalvideo, v.visible, v.zonevisible, v.recd, v.editrecd, v.adolrecd)
+		fmt.Println(k, v.adolrec, v.contentpic, v.contentvideo, v.editrec, v.invisible, v.location, v.private, v.mct, v.purecontent, v.purepic, v.purevideo, v.rec, v.selfdelete, v.selfv, v.square, v.totaldetailsquare, v.totalimg, v.totalcontent, v.totallike, v.totalreport, v.totalreview, v.totalreview2, v.totalreviews, v.totalvideo, v.visible, v.zonevisible, v.recd, v.editrecd, v.adolrecd, v.age)
 	}
 }
