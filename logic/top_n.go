@@ -27,7 +27,7 @@ func FindN(data topn) (ret []interface{}) {
 		r: &linklist{},
 	}
 	lr.cur = lr.r
-	for i := 0; i < data.N(); i++ {
+	for i := 0; i < data.N()-1; i++ {
 		lr.cur.Next = &linklist{}
 		lr.cur.Next.Prev = lr.cur
 		lr.cur = lr.cur.Next
