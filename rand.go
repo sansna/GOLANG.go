@@ -8,4 +8,5 @@ func main() {
 	fmt.Println(rand.Float64())
 	r := rand.New(rand.NewSource(time.Now().UnixNano()))
 	fmt.Println(r.Perm(1))
+	fmt.Println(rand.Intn(1))
 }

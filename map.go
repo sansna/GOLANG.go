@@ -76,4 +76,9 @@ func main() {
 	if _, ok:=newmap["asdf"];!ok {
 		fmt.Println("asdf not found")
 	}
+
+	// create instance of map
+	fmt.Println(map[int64][2]int64{
+		1: [2]int64{2,3},
+	})
 }
