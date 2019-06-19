@@ -1,7 +1,7 @@
 package main
 /* 
-#cgo CFLAGS: -I/home/trii/so
-#cgo LDFLAGS: -L/home/trii/so -la
+#cgo CFLAGS: -I.
+#cgo LDFLAGS: -L. -la
 #include "a.h"
 */
 import "C"
