@@ -1,6 +1,7 @@
 package main
 
 import "fmt"
+import "encoding/json"
 
 type bbb struct {
 	a int
@@ -32,4 +33,17 @@ func main() {
 		d:   4,
 	}
 	fmt.Println(d)
+
+	e := &struct {
+		E  int64 `json:"e,omitempty"`
+		EE int64 `json:"ee,omitempty"`
+	}{
+		EE: 3,
+	}
+	fmt.Println(e)
+	byt, err := json.Marshal(e)
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(string(byt))
 }
