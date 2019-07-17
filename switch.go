@@ -20,4 +20,15 @@ func main() {
 		fmt.Println(x * x)
 	}
 	fmt.Println("ok")
+
+	// multi value
+	y := 1
+	switch y {
+	case 1, 2:
+		fmt.Println("1,2")
+	case 10, 11:
+		fmt.Println("10")
+	default:
+		fmt.Println("not in values")
+	}
 }
