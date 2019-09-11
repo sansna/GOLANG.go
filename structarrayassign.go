@@ -1,6 +1,7 @@
 package main
 
 import "fmt"
+//import "reflect"
 
 type A struct {
 	a int
@@ -26,4 +27,10 @@ func main() {
 		z: a,
 	}
 	fmt.Println(b.z[1].b)
+
+	// changes a also changes value in b.z
+	a[0].b = 11
+	fmt.Println(b.z[0].b)
+
+	fmt.Println(&a, &(b.z))
 }

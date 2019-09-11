@@ -17,5 +17,8 @@ func main() {
 	fmt.Println(mp("sdf", "zxcv"))
 	fmt.Println(mp("sdf", "ZXcv", "你好"))
 	fmt.Println(mp("sdf", "13", "xx"))
+
+	a := []string{"asdf", "Zxcv","128"}
+	fmt.Println(mp(a...))
 	//fmt.Println(mp("sdf", 13, 133))
 }

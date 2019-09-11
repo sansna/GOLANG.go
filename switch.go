@@ -4,6 +4,7 @@ import "fmt"
 
 func main() {
 	x := 10
+	b := 5
 	switch x {
 	case 1:
 		fmt.Println(x)
@@ -16,7 +17,7 @@ func main() {
 		fmt.Println(x)
 	case x == 3:
 		fmt.Println(x + 1)
-	case x == 4:
+	case x == 10 && b == 5:
 		fmt.Println(x * x)
 	}
 	fmt.Println("ok")
