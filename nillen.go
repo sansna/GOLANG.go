@@ -5,7 +5,6 @@ import (
 )
 
 func main() {
-	//fmt.Println(len(nil))
 	var a *int
 	var b *int
 	a = nil
@@ -15,4 +14,10 @@ func main() {
 	} else {
 		fmt.Println("not equal")
 	}
+	// This does not work.
+	//fmt.Println(len(nil))
+	// However this typed len works.
+	var test_map map[int64]*int64
+	test_map = nil
+	fmt.Println(len(test_map))
 }

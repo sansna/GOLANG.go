@@ -8,7 +8,7 @@ func main() {
 	fmt.Printf("%b\n", ^uint(math.Pow(2, 40)-1))
 	var a int64
 	a = 10
-	if a<<40>>40 != a {
+	if a<<40>>40 == a {
 		fmt.Printf("%d\n", a)
 	} else {
 
@@ -46,5 +46,18 @@ func main() {
 	g = 3
 	if 1 & g == 1 {
 		fmt.Println("ok")
+	}
+
+	x := 10
+	switch (x) {
+	case 1:
+		fmt.Println(x)
+	case 2:
+		fmt.Println(2*x)
+	case 3,4:
+		fmt.Println(3*x)
+	case 1<<3+2:
+		fmt.Println(x*x)
+	default:
 	}
 }
