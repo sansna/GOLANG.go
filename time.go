@@ -4,6 +4,12 @@ import "time"
 import "fmt"
 
 func main() {
+	// get today's 0:00 ts
+	ts := (time.Now().Unix()+8*3600)/86400*86400 - 8*3600
+	fmt.Println(ts, time.Unix(ts, 0))
+
+	//
+	fmt.Println(time.Now().Hour())
 	a := time.NewTimer(time.Second * 3)
 	fmt.Println(time.Now().Unix())
 	b := <-a.C
