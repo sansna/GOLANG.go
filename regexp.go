@@ -11,4 +11,11 @@ func main() {
 	fmt.Println(re.MatchString(s))
 	re = regexp.MustCompile("你.*对象|对象.*你")
 	fmt.Println(re.MatchString(s))
+
+	s = "（（、$；、（、（、！+、（、（+、"
+	//de_punct := regexp.MustCompile("[~,./<>?()~\\]\\[-\\\\\"'`]+")
+	de_punct := regexp.MustCompile("[- !@#$%^&*()\\[\\]=\\+{}\\\\|;':\",./<>?`~～·！@#¥%…（）—【】「」、｜：“”；‘’，。《》/？]")
+	var dest string
+	dest = de_punct.ReplaceAllString(s, "")
+	fmt.Println(dest)
 }

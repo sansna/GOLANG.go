@@ -20,4 +20,12 @@ func main() {
 	var test_map map[int64]*int64
 	test_map = nil
 	fmt.Println(len(test_map))
+
+	var c interface{}
+	c = nil
+	if c == "OK" {
+		fmt.Println("euqals")
+	} else {
+		fmt.Println("not equal", c)
+	}
 }

@@ -1,6 +1,7 @@
 package main
 
 import "fmt"
+import "time"
 
 func test() bool {
 	return false
@@ -37,5 +38,10 @@ func main() {
 	for i := 0; i != 0; i++ {
 		fmt.Println("This will not be printed.")
 		fmt.Println(i)
+	}
+
+	for true {
+		fmt.Println("true")
+		time.Sleep(time.Second)
 	}
 }

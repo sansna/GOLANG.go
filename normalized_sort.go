@@ -59,6 +59,7 @@ func main() {
 
 	rank := NewRankerNormal(al, bl)
 
+	fmt.Println(rank)
 	sort.Sort(rank)
 	fmt.Println(rank)
 }

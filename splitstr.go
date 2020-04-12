@@ -8,4 +8,8 @@ func main() {
 	for i:=0; i < len(strs);i ++ {
 		fmt.Println(strs[i])
 	}
+
+	url := "http://file.iupvideo.net/img/view/id/30377103"
+	list := strings.Split(url, "/")
+	fmt.Println(list[6])
 }
