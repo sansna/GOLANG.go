@@ -35,4 +35,29 @@ func main() {
 		C: 10,
 	}
 	fmt.Println(n[0], unsafe.Sizeof(n), unsafe.Sizeof(n[0]))
+
+	// Only when array of ptrs, the values are modifiable. []*AA
+	// but array of structs, its not modifiable. []AA
+	l := make(map[int64][]*AA)
+	l[10] = append(l[10], &AA{
+		A: 1,
+		B: 10,
+	})
+	l[10] = append(l[10], &AA{
+		A: 2,
+		B: 20,
+	})
+	fmt.Println(l[10])
+	for _, v := range l {
+		for _, item := range v {
+			if item.A == 2 {
+				fmt.Println("into")
+				item.C = 1827
+				fmt.Println("into", l[10])
+			}
+		}
+	}
+	for _, v := range l[10] {
+		fmt.Println(v)
+	}
 }
