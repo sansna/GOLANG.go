@@ -14,7 +14,7 @@ type A struct {
 type B struct {
 	// this can be modified
 	BB []*A
-	// this cannot be modified
+	// this cannot be modified, unless inner ptr fields
 	BBB []A
 }
 
