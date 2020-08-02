@@ -17,4 +17,6 @@ func main() {
 	z[7]=5
 
 	fmt.Println(z)
+	z = map[int64]int64{}
+	fmt.Println(z)
 }

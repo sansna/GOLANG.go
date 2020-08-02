@@ -1,6 +1,8 @@
 package main
 
 import (
+	"strings"
+	"bufio"
 	"bytes"
 	"os"
 	"fmt"
@@ -20,4 +22,15 @@ func main() {
 	enc.Write(input)
 	enc.Close()
 	fmt.Println(buf.String())
+
+	reader := bufio.NewReader(os.Stdin)
+	for {
+		buf.Reset()
+		text, _ := reader.ReadString('\n')
+		text = strings.Replace(text, "\n", "", -1)
+		enc = base64.NewEncoder(base64.URLEncoding, &buf)
+		enc.Write([]byte(text))
+		enc.Close()
+		fmt.Println(buf.String())
+	}
 }

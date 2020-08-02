@@ -4,6 +4,16 @@ import "time"
 import "fmt"
 
 func main() {
+	// every 15 min
+	remain_ts := (time.Now().Unix()/900+1)*900 - time.Now().Unix()
+	fmt.Println(remain_ts)
+
+	// marshal time
+	timebuf, _ := time.Now().MarshalText()
+	fmt.Println(string(timebuf))
+	tf := time.Now().Format(time.Stamp)
+	fmt.Println(tf)
+
 	// get today's 0:00 ts
 	ts := (time.Now().Unix()+8*3600)/86400*86400 - 8*3600
 	fmt.Println(ts, time.Unix(ts, 0))
@@ -37,4 +47,5 @@ func main() {
 			time.Sleep(time.Second * 3)
 		}()
 	}
+
 }

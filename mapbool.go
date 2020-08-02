@@ -14,4 +14,8 @@ func main() {
 	for k, v := range mapbool {
 		fmt.Println(k, v)
 	}
+
+
+	mapbool2 := make(map[int64]bool, 3)
+	fmt.Println(mapbool2)
 }

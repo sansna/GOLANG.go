@@ -14,6 +14,10 @@ type aaa struct {
 	bbb
 }
 
+type ARRAY struct {
+	A []int64
+}
+
 func main() {
 	a := aaa{
 		c: 5,
@@ -46,4 +50,8 @@ func main() {
 		fmt.Println(err)
 	}
 	fmt.Println(string(byt))
+
+	f := &ARRAY{}
+	f.A = append(f.A, 1)
+	fmt.Println(f)
 }

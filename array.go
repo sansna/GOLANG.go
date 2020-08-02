@@ -1,4 +1,5 @@
 package main
+
 import (
 	"fmt"
 )
@@ -8,8 +9,8 @@ type aa struct {
 }
 
 func main() {
-	a := make([]aa,10)
-	a[0]=aa{
+	a := make([]aa, 10)
+	a[0] = aa{
 		a: 100,
 	}
 	fmt.Println(a)

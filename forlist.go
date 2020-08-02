@@ -5,8 +5,8 @@ import (
 )
 
 func main() {
-	a := []bool{true,false}
-	for _, i := range a {
-		fmt.Println(i)
+	a := []bool{true, false}
+	for idx, i := range a {
+		fmt.Println(idx, i)
 	}
 }
