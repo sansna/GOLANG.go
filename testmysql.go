@@ -9,6 +9,15 @@ import (
 	//"git.ixiaochuan.cn/pp_server/live/service/account/service/statsvc"
 )
 
+//"""
+//CREATE TABLE `json` (
+//	`id` bigint(20) NOT NULL AUTO_INCREMENT,
+//	`doc` json DEFAULT NULL,
+//	`et` bigint(20) NOT NULL DEFAULT '0',
+//	PRIMARY KEY (`id`)
+//)
+//"""
+
 type JsonItem struct {
 	Mid    int64   `json:"mid"`
 	Status int64   `json:"status"`
