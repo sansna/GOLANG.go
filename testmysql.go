@@ -55,4 +55,8 @@ func main() {
 		},
 	}
 	session.Insert(item)
+
+	sql := fmt.Sprintf("select * from %s where doc->\"$.mid\" = ?", doc.TableName())
+	has, err = session.SQL(sql, 82).Get(&doc)
+	fmt.Println("ok", has, err, doc)
 }
