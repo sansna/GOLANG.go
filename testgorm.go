@@ -14,6 +14,17 @@ func (Account) TableName() string {
 	return "json"
 }
 
+type AXX struct {
+	A int
+	B int
+	C int
+	D int
+}
+
+func (AXX) TableName() string {
+	return "axx"
+}
+
 func main() {
 	cmodel.InitMysqlGORM(cfgst.MySql{
 		Hostport: "127.0.0.1:3306",
@@ -31,4 +42,20 @@ func main() {
 	session.Model(Account{}).Where("id = ?", 2).Select("et").Updates(&Account{
 		Et: 0,
 	})
+
+	if !session.HasTable(AXX{}) {
+		cmodel.CreateTables(session, []cmodel.TableDef{
+			cmodel.TableDef{
+				Table: AXX{},
+				Indexes: [][]string{
+					[]string{"a", "b", "c"},
+					[]string{"b", "c"},
+				},
+				UniqIndexes: [][]string{
+					[]string{"c", "d"},
+				},
+			},
+		})
+	}
+
 }

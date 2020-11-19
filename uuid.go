@@ -6,5 +6,5 @@ import (
 )
 
 func main() {
-	fmt.Println(uuid.New())
+	fmt.Println(uuid.New(), len(uuid.New()))
 }

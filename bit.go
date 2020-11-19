@@ -8,4 +8,6 @@ func main() {
 	var a int64
 	a = math.MaxInt64
 	fmt.Printf("%064b\n", a)
+
+	fmt.Println(1<<4)
 }

@@ -14,6 +14,7 @@ func main() {
 		time.Sleep(time.Second * 3)
 		close(ch)
 	}()
+	breakFor := false
 	for {
 		select {
 		case val, ok := <-ch:
@@ -24,12 +25,29 @@ func main() {
 			} else {
 				// channel关闭时的val是个默认值
 				fmt.Println("fail", val)
-				return
+				breakFor = true
+				break
 			}
 		default:
 			// without this default, the program is like blocked.
 			time.Sleep(time.Millisecond)
 		}
+		if breakFor {
+			break
+		}
 	}
 
+	//
+	// one cannot reopen a channel
+	ch = make(chan bool, 4)
+	go func() {
+		ch <- false
+		ch <- true
+		ch <- false
+		time.Sleep(time.Second)
+		close(ch)
+	}()
+	for c := range ch {
+		fmt.Println(c)
+	}
 }

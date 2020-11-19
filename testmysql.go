@@ -33,6 +33,15 @@ func (e JsonSt) TableName() string {
 	return "json"
 }
 
+type UserStatus struct {
+	Mid    int64  `json:"mid"`
+	TypeId string `json:"type_id,omitempty"`
+}
+
+func (UserStatus) TableName() string {
+	return "user_status"
+}
+
 func main() {
 	cmodel.InitMysql(cfgst.MySql{
 		Hostport: "localhost",
@@ -68,4 +77,13 @@ func main() {
 	sql := fmt.Sprintf("select * from %s where doc->\"$.mid\" = ?", doc.TableName())
 	has, err = session.SQL(sql, 82).Get(&doc)
 	fmt.Println("ok", has, err, doc)
+
+	cnt, _ := session.SQL("select count(*) from json").Count()
+	fmt.Println(cnt)
+
+	fmt.Println(session.Table("user_status").Where("type_id = ?", "kladsjfi").Sum(JsonSt{}, "mid"))
+
+	us := UserStatus{}
+	session.Where("mid = 12").Get(&us)
+	fmt.Println(us.Mid, us.TypeId)
 }
