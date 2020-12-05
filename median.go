@@ -46,7 +46,7 @@ func main() {
 	//cnt2 := Count
 	////fmt.Println(dst, nil, Count)
 
-	fmt.Println("优化快排", arr[min], arr[max], cnt1, et1-st1)
+	fmt.Println("优化快排(quick select)", arr[min], arr[max], cnt1, et1-st1)
 	//fmt.Println("快排", dst[min], dst[max], cnt2, et2-st2)
 	//fmt.Println("优化时间：", (et2-st2)-(et1-st1))
 
